@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Stormy</string>
+    <string name="error_title">Oops! Sorry</string>
+    <string name="error_message">There was an error</string>
+    <string name="error_button_ok_text">OK</string>
+    <string name="network_unavailable_message">Sorry, the network is not available</string>
+    <string name="humidity">Humidity</string>
+    <string name="_70">70%</string>
+    <string name="rain_snow">RAIN/SNOW?</string>
+    <string name="_0_88">0.88</string>
+    <string name="placeholder_5pm">placeholder 5pm</string>
+    <string name="todo">TODO</string>
+    <string name="alcatraz_island_ca">Alcatraz Island, CA</string>
+    <string name="_100">100</string>
+    <string name="powered_by_darksky_message"><a href="https://darksky.net/poweredby"> Powered by DarkSky</a></string>
+    <string name="stormy_with_a_chance_of_meatballs"> Stormy with a chance of meatballs</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
