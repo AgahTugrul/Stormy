@@ -1,11 +1,13 @@
-package com.example.stormy;
+package com.example.stormy.model;
+
+import com.example.stormy.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
-public class CurrentWeather {
+public class Current {
     private String locationLabel;
     private String icon;
     private long time;
@@ -15,10 +17,10 @@ public class CurrentWeather {
     private String summary;
     private String timezone;
 
-    public CurrentWeather() {
+    public Current() {
     }
 
-    public CurrentWeather(String locationLabel, String icon, long time, double temperature, double humidity, double precipChance, String summary, String timezone) {
+    public Current(String locationLabel, String icon, long time, double temperature, double humidity, double precipChance, String summary, String timezone) {
         this.locationLabel = locationLabel;
         this.icon = icon;
         this.time = time;
