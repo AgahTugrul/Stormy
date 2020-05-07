@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 import com.example.stormy.R;
 import com.example.stormy.databinding.ActivityMainBinding;
 import com.example.stormy.model.Current;
+import com.example.stormy.model.CurrentUserLocation;
 import com.example.stormy.model.Forecast;
 import com.example.stormy.model.Hour;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -50,6 +53,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -62,8 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
     Forecast forecast;
     private ImageView iconImageView;
-    double longitude;
+    CurrentUserLocation currentUserLocation;
     double latitude;
+    double longitude;
+    String country;
     ImageView imageView;
     int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
@@ -72,15 +78,63 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //37.8267,-122.4233
-        latitude = 37.8267;
-        longitude= -122.4233;
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        checkPermission();
         getForcast(latitude,longitude);
         imageView = findViewById(R.id.maps_image_button);
         Log.d(TAG, "Main UI code is running");
 
     }
+
+    private void checkPermission() {
+        //check permission
+        if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+            //when permission granted
+            getLocation();
+        }
+        else{
+            //when permission is not granted
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERMISSION_ID);
+        }
+    }
+
+    private void getLocation() {
+        mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                //Initialize location
+                Location location = task.getResult();
+                if (location != null)
+                {
+
+                    try {
+                        //Initialize GeoCoder
+                        Geocoder geocoder = new Geocoder(MainActivity.this,
+                                Locale.getDefault());
+                        //Initialize address list
+                        List <Address> addresses = geocoder.getFromLocation(
+                                location.getLatitude(),location.getLongitude(),1);
+                        //set latitude and longitude, initialize CurrentUserLocation
+                        currentUserLocation = new CurrentUserLocation(addresses.get(0).getLongitude(),
+                                addresses.get(0).getLatitude(),
+                                addresses.get(0).getLocality());
+                        latitude = currentUserLocation.getLatitude();
+                        Log.d(TAG, "onComplete: " + addresses.get(0).getLatitude());
+                        longitude = currentUserLocation.getLongitude();
+                        Log.d(TAG, "onComplete: " + longitude);
+                        country = currentUserLocation.getCountry();
+                        Log.d(TAG, "onComplete: " + currentUserLocation.getCountry());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void getForcast(double latitude, double longitude) {
