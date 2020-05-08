@@ -25,4 +25,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_hourly_forecast_activityy">HourlyForecastActivityy</string>
+    <string name="visual_information_about_the_summary">Visual information about the summary</string>
+    <string name="coldest_time">Coldest Time</string>
+    <string name="hottest_time">Hottest Time</string>
 </resources>

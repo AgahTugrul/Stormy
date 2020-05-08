@@ -34,7 +34,6 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 public class HourlyForecastActivity extends AppCompatActivity {
     private HourlyAdapter adapter;
     private ActivityHourlyForecastBinding binding;
-    RecyclerView recyclerView;
 
 
     @Override

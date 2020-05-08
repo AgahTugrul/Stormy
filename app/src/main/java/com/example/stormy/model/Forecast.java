@@ -5,6 +5,7 @@ import com.example.stormy.R;
 public class Forecast {
     private Current current;
     private Hour [] hourlyForecast;
+    private Daily [] dailyForecast;
 
     public Current getCurrent() {
         return current;
@@ -20,6 +21,14 @@ public class Forecast {
 
     public void setHourlyForecast(Hour[] hourlyForecast) {
         this.hourlyForecast = hourlyForecast;
+    }
+
+    public Daily[] getDailyForecast() {
+        return dailyForecast;
+    }
+
+    public void setDailyForecast(Daily[] dailyForecast) {
+        this.dailyForecast = dailyForecast;
     }
 
     public static int getIconId (String iconString) {
@@ -60,4 +69,5 @@ public class Forecast {
 
 
     }
+
 }

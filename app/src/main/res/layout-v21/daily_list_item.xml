@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="daily"
+            type="com.example.stormy.model.Daily"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:cardBackgroundColor="#2196F3"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView_daily_icon"
+                android:layout_width="62dp"
+                android:layout_height="61dp"
+                android:contentDescription="@string/visual_information_about_the_summary"
+                android:scrollbarSize="4dp"
+                app:imageResource="@{daily.icon}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView_daily_day"
+                app:layout_constraintHorizontal_bias="0.842"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView_daily_day"
+                app:layout_constraintVertical_bias="0.02"
+                app:srcCompat="@drawable/ic_launcher" />
+
+            <TextView
+                android:id="@+id/textView_daily_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(daily.time)}"
+                android:textColor="#000000"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.28"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Sunday" />
+
+            <TextView
+                android:id="@+id/TextView_daily_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(daily.summary)}"
+                android:textColor="@color/colorAccent"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView_daily_day"
+                app:layout_constraintHorizontal_bias="0.187"
+                app:layout_constraintStart_toStartOf="@+id/textView_daily_day"
+                app:layout_constraintTop_toBottomOf="@+id/textView_daily_day"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Light Drizzle" />
+
+            <TextView
+                android:id="@+id/textView_daily_theColdestTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="@{String.valueOf(daily.temperatureMinTime)}"
+                android:textColor="@android:color/widget_edittext_dark"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView_daily_coldestValue"
+                app:layout_constraintEnd_toStartOf="@+id/textView_daily_hottestTime"
+                app:layout_constraintStart_toStartOf="@+id/TextView_daily_summary"
+                app:layout_constraintTop_toBottomOf="@+id/TextView_daily_summary"
+                tools:text="@string/coldest_time" />
+
+            <TextView
+                android:id="@+id/textView_daily_coldestValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="36dp"
+                android:text="@{String.valueOf(daily.temperatureMin)}"
+                android:textColor="@android:color/widget_edittext_dark"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView_daily_theColdestTime"
+                app:layout_constraintStart_toStartOf="@+id/textView_daily_theColdestTime"
+                app:layout_constraintTop_toBottomOf="@+id/textView_daily_theColdestTime"
+                tools:text="16:00" />
+
+            <TextView
+                android:id="@+id/textView_daily_hottestTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:text="@{String.valueOf(daily.temperatureMaxTime)}"
+                android:textColor="@android:color/widget_edittext_dark"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/TextView_daily_summary"
+                app:layout_constraintStart_toEndOf="@+id/textView_daily_theColdestTime"
+                app:layout_constraintTop_toBottomOf="@+id/TextView_daily_summary"
+                tools:text="Hottest Time" />
+
+            <TextView
+                android:id="@+id/textView_daily_hottestValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="36dp"
+                android:text="@{String.valueOf(daily.temperatureMax)}"
+                android:textColor="@android:color/widget_edittext_dark"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView_daily_hottestTime"
+                app:layout_constraintStart_toStartOf="@+id/textView_daily_hottestTime"
+                app:layout_constraintTop_toBottomOf="@+id/textView_daily_hottestTime"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="15:00" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

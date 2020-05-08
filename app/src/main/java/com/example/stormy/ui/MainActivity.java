@@ -33,6 +33,7 @@ import com.example.stormy.R;
 import com.example.stormy.databinding.ActivityMainBinding;
 import com.example.stormy.model.Current;
 import com.example.stormy.model.CurrentUserLocation;
+import com.example.stormy.model.Daily;
 import com.example.stormy.model.Forecast;
 import com.example.stormy.model.Hour;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -210,7 +211,32 @@ public class MainActivity extends AppCompatActivity {
         Forecast forecast = new Forecast();
         forecast.setCurrent(getCurrentDetails(jsonData));
         forecast.setHourlyForecast(getHourlyForecast(jsonData));
+        forecast.setDailyForecast(getDailyForecast(jsonData));
+
         return forecast;
+    }
+
+    private Daily[] getDailyForecast (String jsonData) throws JSONException {
+        JSONObject forecast = new JSONObject(jsonData);
+        String timezone = forecast.getString("timezone");
+
+        JSONObject dailyForecast = forecast.getJSONObject("daily");
+        JSONArray data = dailyForecast.getJSONArray("data");
+        Daily dailyArray [] = new Daily[data.length()];
+        for (int i = 0; i <data.length() ; i++) {
+            JSONObject jsonObject = data.getJSONObject(i);
+            Daily daily = new Daily();
+            daily.setIcon(jsonObject.getString("icon"));
+            daily.setSummary(jsonObject.getString("summary"));
+            daily.setTemperatureMax(jsonObject.getDouble("temperatureMax"));
+            daily.setTemperatureMaxTime(jsonObject.getLong("temperatureMaxTime"));
+            daily.setTemperatureMin(jsonObject.getDouble("temperatureMin"));
+            daily.setTemperatureMinTime(jsonObject.getLong("temperatureMinTime"));
+            daily.setTime(jsonObject.getLong("time"));
+            daily.setTimezone(timezone);
+            dailyArray[i] = daily;
+        }
+        return dailyArray;
     }
 
     private Hour[] getHourlyForecast(String jsonData) throws JSONException {
@@ -294,7 +320,14 @@ return hours;
         intent.putExtra("HourlyList", (Serializable) hours);
         startActivity(intent);
     }
+
+    public void dailyOnClick(View view) {
+        Intent intent = new Intent(this, DailyForecastActivity.class);
+        List<Daily> dailyList = Arrays.asList(forecast.getDailyForecast());
+        intent.putExtra("DailyList", (Serializable) dailyList);
+        startActivity(intent);
     }
+}
 
 
 

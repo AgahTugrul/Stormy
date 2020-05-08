@@ -29,6 +29,7 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
     @NonNull
     @Override
     public HourlyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //inflate the child views from hourly list item
         HourlyListItemBinding binding = DataBindingUtil.inflate(LayoutInflater.
                 from(parent.getContext()),
                 R.layout.hourly_list_item,parent,
@@ -38,6 +39,8 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //get the data from the hour class according to the position
+        //use binding object to set the data on each individual view
         Hour hour = hours.get(position);
         holder.hourlyListItemBinding.setHour(hour);
 
